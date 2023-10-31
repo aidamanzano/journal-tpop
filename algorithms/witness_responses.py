@@ -94,7 +94,7 @@ def witness_response(child:Car, parent:Car) -> bool:
                 return False            
             #From FAKE position of parent
             elif child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
-                    return False
+                return False
             else:
                 return False
             
