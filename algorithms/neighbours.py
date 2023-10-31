@@ -33,7 +33,8 @@ def neighbours(parent, cars):
                     if parent.is_in_fake_range_of_sight(car.true_x, car.true_y) is True:
                         neighbours.update( {car: (car.true_x, car.true_y)} )
                 elif car.honest is True and car.coerced is not True:
-                    pass
+                    if parent.is_in_fake_range_of_sight(car.true_x, car.true_y) is True:
+                        neighbours.update( {car: (car.true_x, car.true_y)} )
                 elif car.honest is not True and car.coerced is True:
                     if parent.is_in_fake_range_of_sight(car.fake_x, car.fake_y) is True:
                         neighbours.update( {car: (car.fake_x, car.fake_y)} )
@@ -47,7 +48,8 @@ def neighbours(parent, cars):
                     if parent.is_in_fake_range_of_sight(car.true_x, car.true_y) is True:
                         neighbours.update( {car: (car.true_x, car.true_y)} )
                 elif car.honest is True and car.coerced is not True:
-                    pass
+                    if parent.is_in_fake_range_of_sight(car.true_x, car.true_y) is True:
+                        neighbours.update( {car: (car.true_x, car.true_y)} )
                 elif car.honest is not True and car.coerced is True:
                     if parent.is_in_fake_range_of_sight(car.true_x, car.true_y) is True:
                         neighbours.update( {car: (car.true_x, car.true_y)} )
