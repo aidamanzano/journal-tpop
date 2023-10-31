@@ -31,11 +31,11 @@ def checks(child, named_cars:set, number_of_witnesses_needed:int, threshold:floa
     all criteria for T-PoP are met."""
 
     parent = child.parent
-    parent_neighbours = neighbours(parent, car_list)
+    child_neighbours = neighbours(child, car_list)
     
     if (
     #checking the parent is a neighbour of the child
-    is_car_neighbour(parent, parent_neighbours, child) and
+    is_car_neighbour(child, child_neighbours, parent) and
     
     #checking the child has not been named before
     child.car_id not in named_cars and

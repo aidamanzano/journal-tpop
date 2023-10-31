@@ -15,8 +15,8 @@ def parser(simulation_number, probability_of_honest, probability_of_coerced, den
         percent_true_negatives = (True_Negative / (True_Negative +  False_Positive)) * 100
     else:
         percent_true_negatives = 0
-    percent_false_positives = 100 - percent_true_positives
-    percent_false_negatives = 100 - percent_true_negatives
+    percent_false_negatives = 100 - percent_true_positives
+    percent_false_positives = 100 - percent_true_negatives
 
     row_list = [simulation_number, probability_of_honest, probability_of_coerced, density, threshold, accuracy,
     True_Positive, True_Negative, False_Positive, False_Negative, percent_true_positives, percent_true_negatives, 

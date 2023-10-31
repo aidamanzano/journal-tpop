@@ -35,7 +35,7 @@ class Car:
         fake_position_index (Optional[int]): the index of the car's fake position in the position cache
     """
     def __init__(self, coerced: bool, honest: bool, bounds,
-                parent: Optional["Car"] = None) -> None:
+                parent: Optional["Car"] = None, **kwargs) -> None:
         """
         The constructor for the Car class.
 
@@ -54,8 +54,15 @@ class Car:
 
         self.fake_x: Optional[int] = None
         self.fake_y: Optional[int] = None
-        self.velocity: np.array = self._generate_velocity()
-        self.range_of_sight: float = 0.1
+
+        if 'velocity' in kwargs:
+            self.velocity = kwargs.get('velocity')
+        else:
+            self.velocity: np.array = self._generate_velocity()
+
+
+        
+        self.range_of_sight: float = 1
 
         self.position_history: List[Tuple[int, int]]  = []
         self.honest: bool = honest
@@ -67,10 +74,14 @@ class Car:
         self.y_min = bounds[1][0]
         self.y_max = bounds[1][1]
 
-
-        self.true_x = self._generate_position(self.x_min, self.x_max)
-        self.true_y = self._generate_position(self.y_min, self.y_max)
-
+        if 'position' in kwargs:
+            #print(kwargs.get('position')[0])
+            #print(kwargs.get('position')[1])
+            self.true_x = kwargs.get('position')[0]
+            self.true_y = kwargs.get('position')[1]
+        else:
+            self.true_x = self._generate_position(self.x_min, self.x_max)
+            self.true_y = self._generate_position(self.y_min, self.y_max)
 
         if honest is False:
             self.set_as_fake(bounds)
@@ -98,7 +109,7 @@ class Car:
         return ''.join(random.choice(hex_characters) for _ in range(length))
     
     @staticmethod
-    def _generate_position(min, max) -> int:
+    def _generate_position(min, max) -> float:
         """
         Generates a position array within the bounds of the environment.
 
@@ -121,7 +132,8 @@ class Car:
 
         self.honest = False
 
-    def move_position(self, time: float, x_min: int, x_max: int, y_min: int, y_max: int) -> None:
+    #TODO: do I wanna keep the xmin, xmax, ymin, ymax as input arguments and remove the self.xmin etc?
+    def move_position(self, time: float) -> None:
         """
         Moves the car real coordinates based on the self.velocity.
 
@@ -133,10 +145,10 @@ class Car:
         provisional_x = (self.velocity[0] * time) + self.true_x
         provisional_y = (self.velocity[1] * time) + self.true_y
 
-        if provisional_x > x_max or provisional_x < x_min:
+        if provisional_x > self.x_max or provisional_x < self.x_min:
             inverse = True
             self.velocity[0] = self.velocity[0] *-1
-        if provisional_y > y_max or provisional_y < y_min:
+        if provisional_y > self.y_max or provisional_y < self.y_min:
             inverse = True
             self.velocity[1] = self.velocity[1] *-1
 
@@ -147,17 +159,18 @@ class Car:
             self.true_x = provisional_x
             self.true_y = provisional_y
 
-    def move_fake_position(self, time: float, x_min: int, x_max: int, y_min: int, y_max: int) -> None:
+    #TODO: do I wanna keep the xmin, xmax, ymin, ymax as input arguments and remove the self.xmin etc?
+    def move_fake_position(self, time: float) -> None:
 
         inverse = False
         
         provisional_x = (self.velocity[0] * time) + self.fake_x
         provisional_y = (self.velocity[1] * time) + self.fake_y
 
-        if provisional_x > x_max or provisional_x < x_min:
+        if provisional_x > self.x_max or provisional_x < self.x_min:
             inverse = True
             self.velocity[0] = self.velocity[0] *-1
-        if provisional_y > y_max or provisional_y < y_min:
+        if provisional_y > self.y_max or provisional_y < self.y_min:
             inverse = True
             self.velocity[1] = self.velocity[1] *-1
 
