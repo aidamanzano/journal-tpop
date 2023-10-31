@@ -151,41 +151,57 @@ def witness_response(child:Car, parent:Car) -> bool:
 
         if parent.honest is True and parent.coerced is True:
             if child.is_in_true_range_of_sight(parent.true_x, parent.true_y):
-                pass
+                return False
+            else:
+                return False
 
         if parent.honest is True and parent.coerced is False:
             if child.is_in_true_range_of_sight(parent.true_x, parent.true_y):
-                pass
+                return False
+            else:
+                return False
 
         if parent.honest is False and parent.coerced is True:
             if child.is_in_true_range_of_sight(parent.true_x, parent.true_y):
-                pass
-            if child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
-                pass
+                return False
+            elif child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
+                return False
+            else:
+                return False
 
         if parent.honest is False and parent.coerced is False:
             if child.is_in_true_range_of_sight(parent.true_x, parent.true_y):
-                pass
-            if child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
-                pass
+                return False
+            elif child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
+                return False
+            else:
+                return False
 
         #From FAKE position of CHILD
         if parent.honest is True and parent.coerced is True:
             if child.is_in_fake_range_of_sight(parent.true_x, parent.true_y):
-                pass
+                return True
+            else:
+                return False
 
         if parent.honest is True and parent.coerced is False:
             if child.is_in_fake_range_of_sight(parent.true_x, parent.true_y):
-                pass
+                return True
+            else:
+                return False
 
         if parent.honest is False and parent.coerced is True:
             if child.is_in_fake_range_of_sight(parent.true_x, parent.true_y):
-                pass
-            if child.is_in_fake_range_of_sight(parent.fake_x, parent.fake_y):
-                pass
+                return True
+            elif child.is_in_fake_range_of_sight(parent.fake_x, parent.fake_y):
+                return False
+            else:
+                return False
 
         if parent.honest is False and parent.coerced is False:
             if child.is_in_fake_range_of_sight(parent.true_x, parent.true_y):
-                pass
+                return True
             if child.is_in_fake_range_of_sight(parent.fake_x, parent.fake_y):
-                pass
+                return False
+            else:
+                return False
