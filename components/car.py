@@ -62,7 +62,7 @@ class Car:
 
 
         
-        self.range_of_sight: float = 1
+        self.range_of_sight: float = 0.5
 
         self.position_history: List[Tuple[int, int]]  = []
         self.honest: bool = honest

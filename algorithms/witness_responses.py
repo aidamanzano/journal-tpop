@@ -65,11 +65,12 @@ def witness_response(child:Car, parent:Car) -> bool:
             
         if parent.honest is False and parent.coerced is False:
             #From TRUE position of parent
-            if child.is_in_true_range_of_sight(parent.true_x, parent.true_y):
-                return True
+            #if child.is_in_true_range_of_sight(parent.true_x, parent.true_y):
+                #TODO:return True
+                #return False
             
             #From FAKE position of parent
-            elif child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
+            if child.is_in_true_range_of_sight(parent.fake_x, parent.fake_y):
                 return False
             else:
                 return False
